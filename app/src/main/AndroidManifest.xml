@@ -18,6 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RecipeDetail"
+            android:label="@string/title_activity_recipe_detail"
+            android:parentActivityName=".RecipeList"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.marisayeung.gocook.RecipeList" />
+        </activity>
     </application>
 
 </manifest>
