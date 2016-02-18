@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,30 +27,42 @@ public class Recipe {
         try {
             meta = new Meta(jsonRecipe.getJSONObject("meta"));
 
-            title = jsonRecipe.getString("name");
+            title = jsonRecipe.getString("title");
             author = jsonRecipe.getString("author");
             time = jsonRecipe.getString("time");
             yield = jsonRecipe.getString("yield");
             description = jsonRecipe.getString("description");
 
             JSONArray noteJSON = jsonRecipe.getJSONArray("notes");
+            notes = new ArrayList<>();
+            String note;
             for (int i = 0; i < noteJSON.length(); i++) {
-                notes.add(noteJSON.getString(i));
+                note = noteJSON.getString(i);
+                if (!note.equals("")) {
+                    notes.add(note);
+                }
             }
 
             JSONArray ingredientsJSON = jsonRecipe.getJSONArray("ingredients");
+            ingredients = new ArrayList<>();
             for (int j = 0; j < ingredientsJSON.length(); j++) {
                 ingredients.add(new Ingredient(ingredientsJSON.getJSONObject(j)));
             }
 
             JSONArray stepsJSON = jsonRecipe.getJSONArray("steps");
+            steps = new ArrayList<>();
             for (int k = 0; k < stepsJSON.length(); k++) {
                 steps.add(stepsJSON.getString(k));
             }
 
             JSONArray imagesJSON = jsonRecipe.getJSONArray("images");
+            images = new ArrayList<>();
+            String image;
             for (int l = 0; l < imagesJSON.length(); l++) {
-                images.add(imagesJSON.getString(l));
+                image = imagesJSON.getString(l);
+                if (!image.equals("")) {
+                    images.add(image);
+                }
             }
 
         } catch (JSONException e) {

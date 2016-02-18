@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -33,7 +34,9 @@ public class Meta {
             return;
         }
         try {
-            created = dateFormat.parse(createdString);
+            if (!createdString.equals("")) {
+                created = dateFormat.parse(createdString);
+            }
         } catch (ParseException e) {
             e.printStackTrace();
             return;
@@ -53,10 +56,15 @@ public class Meta {
 
 //        Parse tags
         JSONArray jsonArray;
+        String tag;
+        tags = new ArrayList<>();
         try {
             jsonArray = meta.getJSONArray("tags");
             for(int i=0; i < jsonArray.length(); i++) {
-                tags.add(jsonArray.getString(i));
+                tag = jsonArray.getString(i);
+                if (!tag.equals("")) {
+                    tags.add(tag);
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
