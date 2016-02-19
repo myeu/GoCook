@@ -1,5 +1,8 @@
 package com.example.marisayeung.gocook;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,7 +13,7 @@ import java.util.List;
 /**
  * Created by marisayeung on 2/16/16.
  */
-public class Recipe {
+public class Recipe implements Parcelable{
     private String title;
     private String author;
     private String time;
@@ -71,6 +74,31 @@ public class Recipe {
         }
     }
 
+    protected Recipe(Parcel in) {
+        title = in.readString();
+        author = in.readString();
+        time = in.readString();
+        yield = in.readString();
+        description = in.readString();
+        notes = in.createStringArrayList();
+        ingredients = in.createTypedArrayList(Ingredient.CREATOR);
+        steps = in.createStringArrayList();
+        images = in.createStringArrayList();
+        meta = in.readParcelable(Meta.class.getClassLoader());
+    }
+
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
+
     public Meta getMeta() {
         return meta;
     }
@@ -109,5 +137,24 @@ public class Recipe {
 
     public List<String> getImages() {
         return images;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(author);
+        dest.writeString(time);
+        dest.writeString(yield);
+        dest.writeString(description);
+        dest.writeStringList(notes);
+        dest.writeTypedList(ingredients);
+        dest.writeStringList(steps);
+        dest.writeStringList(images);
+        dest.writeParcelable(meta, flags);
     }
 }

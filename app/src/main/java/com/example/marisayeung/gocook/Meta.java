@@ -1,5 +1,8 @@
 package com.example.marisayeung.gocook;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,9 +18,10 @@ import java.util.Locale;
 /**
  * Created by marisayeung on 2/16/16.
  */
-public class Meta {
+public class Meta implements Parcelable {
+
     private Date created;
-    private Timestamp last_sync;
+    private String lastSync;
     private String url;
     private List<String> tags;
 
@@ -44,7 +48,8 @@ public class Meta {
 
 //        Create timestamp
         java.util.Date dateNow = new java.util.Date();
-        last_sync = new Timestamp(dateNow.getTime());
+        Timestamp lastSyncTimeStamp = new Timestamp(dateNow.getTime());
+        lastSync = lastSyncTimeStamp.toString();
 
 //        Parse URL
         try {
@@ -70,5 +75,80 @@ public class Meta {
             e.printStackTrace();
             return;
         }
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(created != null ? created.getTime() : -1);
+        dest.writeString(this.lastSync);
+        dest.writeString(this.url);
+        dest.writeStringList(this.tags);
+    }
+
+    protected Meta(Parcel in) {
+        long tmpCreated = in.readLong();
+        this.created = tmpCreated == -1 ? null : new Date(tmpCreated);
+        this.lastSync = in.readString();
+        this.url = in.readString();
+        this.tags = in.createStringArrayList();
+    }
+
+    public static final Creator<Meta> CREATOR = new Creator<Meta>() {
+        public Meta createFromParcel(Parcel source) {
+            return new Meta(source);
+        }
+
+        public Meta[] newArray(int size) {
+            return new Meta[size];
+        }
+    };
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Timestamp getLastSync() {
+        return Timestamp.valueOf(lastSync);
+    }
+
+    public void setLastSync(Timestamp newSyncTime) {
+        lastSync = newSyncTime.toString();
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public boolean addATag(String tag) {
+        if (!tags.contains(tag)) {
+            tags.add(tag);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeATag(String tag) {
+        if (tags.contains(tag)) {
+            tags.remove(tag);
+            return true;
+        }
+        return false;
     }
 }

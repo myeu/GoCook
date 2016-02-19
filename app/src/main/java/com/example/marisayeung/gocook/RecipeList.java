@@ -124,8 +124,7 @@ public class RecipeList extends AppCompatActivity {
 
     private void viewDetail(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDetail.class);
-//        intent.putExtra("recipe", recipe);
-//        intent.putExtra
+        intent.putExtra("chosenRecipe", recipe);
         startActivity(intent);
     }
 
