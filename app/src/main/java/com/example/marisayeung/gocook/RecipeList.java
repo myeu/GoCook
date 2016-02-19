@@ -1,5 +1,6 @@
 package com.example.marisayeung.gocook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -67,6 +69,14 @@ public class RecipeList extends AppCompatActivity {
         RecipeAdapter recipeAdapter = new RecipeAdapter(this, R.layout.recipe_list_row, recipes);
         listView.setAdapter(recipeAdapter);
 
+        listView.setOnItemClickListener((new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                Recipe recipe = (Recipe) adapter.getItemAtPosition(position);
+
+                viewDetail(recipe);
+            }
+        }));
     }
 
     private void addJsonStringToRecipeList(List<Recipe> recipes, String jsonString) {
@@ -110,6 +120,13 @@ public class RecipeList extends AppCompatActivity {
         }
 
         return json;
+    }
+
+    private void viewDetail(Recipe recipe) {
+        Intent intent = new Intent(this, RecipeDetail.class);
+//        intent.putExtra("recipe", recipe);
+//        intent.putExtra
+        startActivity(intent);
     }
 
     @Override
