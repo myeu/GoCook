@@ -24,7 +24,7 @@ public class Ingredient implements Parcelable{
             ingredient = unparsedIngredient.getString("ingredient");
             amount = unparsedIngredient.getString("amount");
             unit = unparsedIngredient.getString("unit");
-            processing = unparsedIngredient.getString("note");
+            processing = unparsedIngredient.getString("processing");
             note = unparsedIngredient.getString("note");
         } catch (JSONException e) {
             e.printStackTrace();

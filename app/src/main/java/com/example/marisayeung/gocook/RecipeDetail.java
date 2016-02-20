@@ -1,23 +1,20 @@
 package com.example.marisayeung.gocook;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeDetail extends AppCompatActivity {
@@ -88,15 +85,50 @@ public class RecipeDetail extends AppCompatActivity {
         LinearLayout ingredientRoot = (LinearLayout) findViewById(R.id.ingredients);
         List<Ingredient> ingredients = recipe.getIngredients();
         if (ingredients.size() > 0) {
-            //updateTextView(ingredients.get(0), R.id.notes);
-            //TODO: add new textview elements to ingredients layout in content xml
             for (Ingredient i : ingredients) {
-
                 displayIngredient(i, ingredientRoot);
-                //updateTextView(note, R.id.notes);
             }
 
         }
+
+//        Set steps
+        LinearLayout preparationRoot = (LinearLayout) findViewById(R.id.steps);
+        List<String> steps = recipe.getSteps();
+        if (steps.size() > 0) {
+            for (int i = 0; i < steps.size(); i++) {
+                displayStep(steps.get(i), i + 1, preparationRoot);
+            }
+        }
+    }
+    private void displayStep(String step, int num, LinearLayout root) {
+//        Add Step row
+        LinearLayout stepLayout = new LinearLayout(this);
+        stepLayout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams stepParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        stepLayout.setLayoutParams(stepParams);
+        root.addView(stepLayout);
+
+//        Add number
+        TextView number = new TextView(this);
+        LinearLayout.LayoutParams numberParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        numberParams.setMargins(16, 0, 0, 0);
+        number.setLayoutParams(numberParams);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(num);
+        builder.append(". ");
+        number.setText(builder);
+        stepLayout.addView(number);
+
+//        Add step
+        TextView stepView = new TextView(this);
+        LinearLayout.LayoutParams stepTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        stepTextParams.setMargins(16, 0, 0, 0);
+        stepView.setLayoutParams(stepTextParams);
+
+        stepView.setText(step);
+        stepLayout.addView(stepView);
     }
 
     private void displayIngredient(Ingredient i, LinearLayout root) {
@@ -129,10 +161,10 @@ public class RecipeDetail extends AppCompatActivity {
             builder.append(", ");
             builder.append(i.getProcessing());
         }
-//        if (!i.getNote().equals("")) {
-//            builder.append(" Note: ");
-//            builder.append(i.getNote());
-//        }
+        if (!i.getNote().equals("")) {
+            builder.append(" Note: ");
+            builder.append(i.getNote());
+        }
 
         TextView ingredientView = new TextView(this);
         ingredientView.setText(builder.toString());
@@ -141,11 +173,22 @@ public class RecipeDetail extends AppCompatActivity {
 
     }
 
-
     private void updateTextView(String newText, int id) {
         if (!newText.equals("")) {
             TextView view = (TextView) findViewById(id);
             view.setText(newText);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_recipe_list, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return MenuHelper.handleOnItemSelected(this, item);
     }
 }
