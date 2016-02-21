@@ -151,11 +151,11 @@ public class RecipeViewer extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "SECTION 1";
+                    return "DESCRIPTION";
                 case 1:
-                    return "SECTION 2";
+                    return "INGREDIENTS";
                 case 2:
-                    return "SECTION 3";
+                    return "PREPARATION";
             }
             return null;
         }

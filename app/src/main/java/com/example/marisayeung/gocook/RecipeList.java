@@ -39,8 +39,8 @@ public class RecipeList extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startViewer();
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
@@ -77,6 +77,11 @@ public class RecipeList extends AppCompatActivity {
                 viewDetail(recipe);
             }
         }));
+    }
+
+    private void startViewer() {
+        Intent intent = new Intent(this, RecipeViewer.class);
+        startActivity(intent);
     }
 
     private void addJsonStringToRecipeList(List<Recipe> recipes, String jsonString) {
