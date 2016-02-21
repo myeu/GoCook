@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_recipe_detail">Recipe detail</string>
     <string name="action_uninstall">Uninstall</string>
+    <string name="title_activity_recipe_viewer">Recipe Viewer</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>
