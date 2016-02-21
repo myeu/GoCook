@@ -9,26 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DescriptionFragment.OnFragmentInteractionListener} interface
+ * {@link IngredientFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DescriptionFragment#newInstance} factory method to
+ * Use the {@link IngredientFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DescriptionFragment extends Fragment {
+public class IngredientFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String RECIPE = "recipe";
 
+    // TODO: Rename and change types of parameters
     private Recipe recipe;
 
     private OnFragmentInteractionListener mListener;
 
-    public DescriptionFragment() {
+    public IngredientFragment() {
         // Required empty public constructor
     }
 
@@ -37,11 +37,11 @@ public class DescriptionFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param recipe Parameter 1.
-     * @return A new instance of fragment DescriptionFragment.
+     * @return A new instance of fragment IngredientFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DescriptionFragment newInstance(Recipe recipe) {
-        DescriptionFragment fragment = new DescriptionFragment();
+    public static IngredientFragment newInstance(Recipe recipe) {
+        IngredientFragment fragment = new IngredientFragment();
         Bundle args = new Bundle();
         args.putParcelable(RECIPE, recipe);
         fragment.setArguments(args);
@@ -54,16 +54,14 @@ public class DescriptionFragment extends Fragment {
         if (getArguments() != null) {
             recipe = getArguments().getParcelable(RECIPE);
         }
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_description, container, false);
-        updateTextView(recipe.getDescription(), rootView, R.id.topView);
         // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_ingredient, container, false);
+        updateTextView(recipe.getIngredients().get(0).getIngredient(), rootView, R.id.topIngredient);
         return rootView;
     }
 
@@ -96,7 +94,7 @@ public class DescriptionFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

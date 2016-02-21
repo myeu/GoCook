@@ -1,5 +1,7 @@
 package com.example.marisayeung.gocook;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,7 +21,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class RecipeViewer extends AppCompatActivity {
+public class RecipeViewer extends AppCompatActivity implements DescriptionFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -30,6 +32,7 @@ public class RecipeViewer extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private Recipe recipe;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -44,6 +47,10 @@ public class RecipeViewer extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent = getIntent();
+        recipe = intent.getParcelableExtra("chosenRecipe");
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -55,14 +62,14 @@ public class RecipeViewer extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
     }
 
@@ -87,6 +94,11 @@ public class RecipeViewer extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**
@@ -138,6 +150,12 @@ public class RecipeViewer extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+//            TODO: instead of passing recipe object, just pass the required peices
+            if (getPageTitle(position).equals("DESCRIPTION")) {
+                return DescriptionFragment.newInstance(recipe);
+            } else if (getPageTitle(position).equals("INGREDIENTS")) {
+                return IngredientFragment.newInstance(recipe);
+            }
             return PlaceholderFragment.newInstance(position + 1);
         }
 

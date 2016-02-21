@@ -39,8 +39,8 @@ public class RecipeList extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startViewer();
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                //startViewer();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
     }
@@ -74,13 +74,15 @@ public class RecipeList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Recipe recipe = (Recipe) adapter.getItemAtPosition(position);
 
-                viewDetail(recipe);
+                //viewDetail(recipe);
+                startViewer(recipe);
             }
         }));
     }
 
-    private void startViewer() {
+    private void startViewer(Recipe recipe) {
         Intent intent = new Intent(this, RecipeViewer.class);
+        intent.putExtra("chosenRecipe", recipe);
         startActivity(intent);
     }
 

@@ -74,11 +74,6 @@ public class RecipeDetail extends AppCompatActivity {
         List<String> notes = recipe.getNotes();
         if (notes.size() > 0) {
             updateTextView(notes.get(0), R.id.notes);
-            /* TODO: add new textview elements to content xml
-            for (String note : notes) {
-                updateTextView(note, R.id.notes);
-            }*/
-
         }
 
 //        Set ingredients
@@ -100,6 +95,7 @@ public class RecipeDetail extends AppCompatActivity {
             }
         }
     }
+
     private void displayStep(String step, int num, LinearLayout root) {
 //        Add Step row
         LinearLayout stepLayout = new LinearLayout(this);
