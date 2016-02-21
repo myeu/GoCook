@@ -79,24 +79,27 @@ public class RecipeDetail extends AppCompatActivity {
 //        Set ingredients
         LinearLayout ingredientRoot = (LinearLayout) findViewById(R.id.ingredients);
         List<Ingredient> ingredients = recipe.getIngredients();
+        LinearLayout ingredientRow;
         if (ingredients.size() > 0) {
             for (Ingredient i : ingredients) {
-                displayIngredient(i, ingredientRoot);
+                ingredientRow = RecipeViewHelper.displayIngredient(i, this);
+                ingredientRoot.addView(ingredientRow);
             }
-
         }
 
 //        Set steps
         LinearLayout preparationRoot = (LinearLayout) findViewById(R.id.steps);
         List<String> steps = recipe.getSteps();
+        LinearLayout stepRow;
         if (steps.size() > 0) {
             for (int i = 0; i < steps.size(); i++) {
-                displayStep(steps.get(i), i + 1, preparationRoot);
+                stepRow = RecipeViewHelper.displayStep(steps.get(i), i + 1, this);
+                preparationRoot.addView(stepRow);
             }
         }
     }
 
-    private void displayStep(String step, int num, LinearLayout root) {
+    /*private void displayStep(String step, int num, LinearLayout root) {
 //        Add Step row
         LinearLayout stepLayout = new LinearLayout(this);
         stepLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -125,9 +128,9 @@ public class RecipeDetail extends AppCompatActivity {
 
         stepView.setText(step);
         stepLayout.addView(stepView);
-    }
+    }*/
 
-    private void displayIngredient(Ingredient i, LinearLayout root) {
+    /*private void displayIngredient(Ingredient i, LinearLayout root) {
 //        Add ingredient row
         LinearLayout ingredientLayout = new LinearLayout(this);
         ingredientLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -167,7 +170,7 @@ public class RecipeDetail extends AppCompatActivity {
         ingredientView.setLayoutParams(lineParams);
         ingredientLayout.addView(ingredientView);
 
-    }
+    }*/
 
     private void updateTextView(String newText, int id) {
         if (!newText.equals("")) {

@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class RecipeViewer extends AppCompatActivity implements DescriptionFragment.OnFragmentInteractionListener {
+public class RecipeViewer extends AppCompatActivity implements DescriptionFragment.OnFragmentInteractionListener, IngredientFragment.OnFragmentInteractionListener  {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -97,7 +97,12 @@ public class RecipeViewer extends AppCompatActivity implements DescriptionFragme
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onDescriptionFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onIngredientFragmentInteraction(Uri uri) {
 
     }
 
