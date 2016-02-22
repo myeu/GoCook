@@ -7,8 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by marisayeung on 2/16/16.
- */
+ * Created by marisayeung
+ * */
 public class Ingredient implements Parcelable{
     private String ingredient;
     private String amount;

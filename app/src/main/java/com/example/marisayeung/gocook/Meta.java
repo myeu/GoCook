@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by marisayeung on 2/16/16.
+ * Created by marisayeung
  */
 public class Meta implements Parcelable {
 

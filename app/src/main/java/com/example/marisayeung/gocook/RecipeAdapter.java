@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by marisayeung on 2/17/16.
+ * Created by marisayeung
  */
 public class RecipeAdapter extends ArrayAdapter<Recipe> {
 

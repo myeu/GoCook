@@ -6,7 +6,7 @@ import android.net.Uri;
 import android.view.MenuItem;
 
 /**
- * Created by marisayeung on 2/20/16.
+ * Created by marisayeung
  */
 public class MenuHelper {
     public static boolean handleOnItemSelected(Context context, MenuItem item) {

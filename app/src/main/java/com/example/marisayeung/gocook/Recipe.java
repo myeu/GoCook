@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by marisayeung on 2/16/16.
+ * Created by marisayeung
  */
 public class Recipe implements Parcelable{
     private String title;

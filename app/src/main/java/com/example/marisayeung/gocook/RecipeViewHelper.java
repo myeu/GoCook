@@ -5,7 +5,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
- * Created by marisayeung on 2/21/16.
+ * Created by marisayeung
  *
  * Contains common view building code for displaying recipe components
  *
