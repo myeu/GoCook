@@ -21,7 +21,10 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class RecipeViewer extends AppCompatActivity implements DescriptionFragment.OnFragmentInteractionListener, IngredientFragment.OnFragmentInteractionListener  {
+public class RecipeViewer extends AppCompatActivity
+        implements DescriptionFragment.OnFragmentInteractionListener,
+                    IngredientFragment.OnFragmentInteractionListener,
+                    PreparationFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -106,6 +109,11 @@ public class RecipeViewer extends AppCompatActivity implements DescriptionFragme
 
     }
 
+    @Override
+    public void onPreparationFragmentInteraction(Uri uri) {
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -156,10 +164,12 @@ public class RecipeViewer extends AppCompatActivity implements DescriptionFragme
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 //            TODO: instead of passing recipe object, just pass the required peices
-            if (getPageTitle(position).equals("DESCRIPTION")) {
+            if (getPageTitle(position).equals("OVERVIEW")) {
                 return DescriptionFragment.newInstance(recipe);
             } else if (getPageTitle(position).equals("INGREDIENTS")) {
                 return IngredientFragment.newInstance(recipe);
+            } else if (getPageTitle(position).equals("PREPARATION")) {
+                return PreparationFragment.newInstance(recipe);
             }
             return PlaceholderFragment.newInstance(position + 1);
         }
@@ -174,7 +184,7 @@ public class RecipeViewer extends AppCompatActivity implements DescriptionFragme
         public CharSequence getPageTitle(int position) {
             switch (position) {
                 case 0:
-                    return "DESCRIPTION";
+                    return "OVERVIEW";
                 case 1:
                     return "INGREDIENTS";
                 case 2:

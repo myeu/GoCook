@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.marisayeung.gocook.DescriptionFragment">
+    tools:context="com.example.marisayeung.gocook.PreparationFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -11,11 +11,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:id="@+id/overview">
+            android:id="@+id/preparation">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/tmp_description_text"/>
+                android:id="@+id/tmp_preparation_text"/>
         </LinearLayout>
     </ScrollView>
 
