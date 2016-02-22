@@ -7,7 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 /**
@@ -61,7 +64,19 @@ public class IngredientFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_ingredient, container, false);
-        updateTextView(recipe.getIngredients().get(0).getIngredient(), rootView, R.id.topIngredient);
+        //updateTextView(recipe.getIngredients().get(0).getIngredient(), rootView, R.id.topIngredient);
+        LinearLayout ingredientRoot = (LinearLayout) rootView.findViewById(R.id.ingredients);
+        List<Ingredient> ingredients = recipe.getIngredients();
+        LinearLayout ingredientRow;
+        if (ingredients.size() > 0) {
+            for (Ingredient i : ingredients) {
+                // TODO: figure out if this is the right place to check for null
+                if (getActivity() != null) {
+                    ingredientRow = RecipeViewHelper.displayIngredient(i, getActivity());
+                    ingredientRoot.addView(ingredientRow);
+                }
+            }
+        }
         return rootView;
     }
 
