@@ -27,7 +27,6 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class DescriptionFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
     private static final String RECIPE = "recipe";
 
     private Recipe recipe;
@@ -45,7 +44,6 @@ public class DescriptionFragment extends Fragment {
      * @param recipe Parameter 1.
      * @return A new instance of fragment DescriptionFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static DescriptionFragment newInstance(Recipe recipe) {
         DescriptionFragment fragment = new DescriptionFragment();
         Bundle args = new Bundle();
@@ -145,7 +143,6 @@ public class DescriptionFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onDescriptionFragmentInteraction(Uri uri);
     }
 

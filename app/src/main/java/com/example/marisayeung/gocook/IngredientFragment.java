@@ -22,11 +22,8 @@ import java.util.List;
  * create an instance of this fragment.
  */
 public class IngredientFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String RECIPE = "recipe";
 
-    // TODO: Rename and change types of parameters
     private Recipe recipe;
 
     private OnFragmentInteractionListener mListener;
@@ -42,7 +39,6 @@ public class IngredientFragment extends Fragment {
      * @param recipe Parameter 1.
      * @return A new instance of fragment IngredientFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static IngredientFragment newInstance(Recipe recipe) {
         IngredientFragment fragment = new IngredientFragment();
         Bundle args = new Bundle();
@@ -64,7 +60,6 @@ public class IngredientFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_ingredient, container, false);
-        //updateTextView(recipe.getIngredients().get(0).getIngredient(), rootView, R.id.topIngredient);
         LinearLayout ingredientRoot = (LinearLayout) rootView.findViewById(R.id.ingredients);
         List<Ingredient> ingredients = recipe.getIngredients();
         LinearLayout ingredientRow;
@@ -115,14 +110,6 @@ public class IngredientFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onIngredientFragmentInteraction(Uri uri);
-    }
-
-    private void updateTextView(String newText, View container, int id) {
-        if (!newText.equals("")) {
-            TextView view = (TextView) container.findViewById(id);
-            view.setText(newText);
-        }
     }
 }

@@ -6,7 +6,11 @@ import android.widget.TextView;
 
 /**
  * Created by marisayeung on 2/21/16.
+ *
+ * Contains common view building code for displaying recipe components
+ *
  */
+
 public class RecipeViewHelper {
 
     public static LinearLayout displayIngredient(Ingredient i, Context context) {

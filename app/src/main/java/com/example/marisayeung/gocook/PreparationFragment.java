@@ -40,7 +40,6 @@ public class PreparationFragment extends Fragment {
      * @param recipe Parameter 1.
      * @return A new instance of fragment PreparationFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static PreparationFragment newInstance(Recipe recipe) {
         PreparationFragment fragment = new PreparationFragment();
         Bundle args = new Bundle();
@@ -112,7 +111,6 @@ public class PreparationFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onPreparationFragmentInteraction(Uri uri);
     }
 }

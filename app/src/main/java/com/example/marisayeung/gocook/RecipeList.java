@@ -73,8 +73,6 @@ public class RecipeList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
                 Recipe recipe = (Recipe) adapter.getItemAtPosition(position);
-
-                //viewDetail(recipe);
                 startViewer(recipe);
             }
         }));

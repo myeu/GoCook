@@ -17,6 +17,12 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.List;
 
+/*
+    No longer used
+    Code worked but decided to change format
+
+ */
+
 public class RecipeDetail extends AppCompatActivity {
 
     @Override
