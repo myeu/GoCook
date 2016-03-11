@@ -6,7 +6,11 @@ import android.os.Build;
 import com.evernote.client.android.EvernoteSession;
 
 /**
- * Created by marisayeung on 3/10/16.
+ *
+ * From Evernote SDK demo
+ * @author rwondratschek
+ * https://github.com/evernote/evernote-sdk-android/
+ *
  */
 public class GoCookApp extends Application {
 

@@ -7,8 +7,11 @@
     android:layout_height="wrap_content"
     android:background="@color/colorPrimary">
     <TextView
+        android:id="@+id/textView_user_name"
         android:layout_width="match_parent"
         android:layout_height="78dp"
         android:gravity="center_vertical"
-        tools:text="User name"/>
+        android:text="user name"
+        android:layout_marginStart="24dp"
+        style="@style/TextAppearance.AppCompat.Large.Inverse"/>
 </LinearLayout>

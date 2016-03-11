@@ -1,5 +1,6 @@
-package com.example.marisayeung.gocook;
+package com.example.marisayeung.gocook.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.example.marisayeung.gocook.R;
+import com.example.marisayeung.gocook.Recipe;
+import com.example.marisayeung.gocook.RecipeViewHelper;
 
 import java.util.List;
 
@@ -16,19 +20,20 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link IngredientFragment.OnFragmentInteractionListener} interface
+ * {@link PreparationFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link IngredientFragment#newInstance} factory method to
+ * Use the {@link PreparationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IngredientFragment extends Fragment {
+public class PreparationFragment extends Fragment {
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String RECIPE = "recipe";
 
     private Recipe recipe;
 
     private OnFragmentInteractionListener mListener;
 
-    public IngredientFragment() {
+    public PreparationFragment() {
         // Required empty public constructor
     }
 
@@ -37,10 +42,10 @@ public class IngredientFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param recipe Parameter 1.
-     * @return A new instance of fragment IngredientFragment.
+     * @return A new instance of fragment PreparationFragment.
      */
-    public static IngredientFragment newInstance(Recipe recipe) {
-        IngredientFragment fragment = new IngredientFragment();
+    public static PreparationFragment newInstance(Recipe recipe) {
+        PreparationFragment fragment = new PreparationFragment();
         Bundle args = new Bundle();
         args.putParcelable(RECIPE, recipe);
         fragment.setArguments(args);
@@ -59,16 +64,16 @@ public class IngredientFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_ingredient, container, false);
-        LinearLayout ingredientRoot = (LinearLayout) rootView.findViewById(R.id.ingredients);
-        List<Ingredient> ingredients = recipe.getIngredients();
-        LinearLayout ingredientRow;
-        if (ingredients.size() > 0) {
-            for (Ingredient i : ingredients) {
-                // TODO: figure out if this is the right place to check for null
-                if (getActivity() != null) {
-                    ingredientRow = RecipeViewHelper.displayIngredient(i, getActivity());
-                    ingredientRoot.addView(ingredientRow);
+        View rootView = inflater.inflate(R.layout.fragment_preparation, container, false);
+        LinearLayout preparationRoot = (LinearLayout) rootView.findViewById(R.id.preparation);
+        List<String> steps = recipe.getSteps();
+        LinearLayout stepRow;
+        if(steps.size() > 0) {
+            for (int i = 0; i < steps.size(); i++) {
+                Activity activity = getActivity();
+                if (activity != null) {
+                    stepRow = RecipeViewHelper.displayStep(steps.get(i), i + 1, activity);
+                    preparationRoot.addView(stepRow);
                 }
             }
         }
@@ -78,7 +83,7 @@ public class IngredientFragment extends Fragment {
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
-            mListener.onIngredientFragmentInteraction(uri);
+            mListener.onPreparationFragmentInteraction(uri);
         }
     }
 
@@ -110,6 +115,6 @@ public class IngredientFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onIngredientFragmentInteraction(Uri uri);
+        void onPreparationFragmentInteraction(Uri uri);
     }
 }

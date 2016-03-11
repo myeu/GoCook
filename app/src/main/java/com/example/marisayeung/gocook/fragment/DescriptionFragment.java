@@ -1,4 +1,4 @@
-package com.example.marisayeung.gocook;
+package com.example.marisayeung.gocook.fragment;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -12,7 +12,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.marisayeung.gocook.R;
+import com.example.marisayeung.gocook.Recipe;
 
 import java.io.IOException;
 import java.util.List;
