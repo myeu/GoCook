@@ -11,6 +11,7 @@ import android.view.View;
 import com.evernote.client.android.EvernoteSession;
 import com.evernote.client.android.helper.Cat;
 import com.evernote.edam.error.EDAMUserException;
+
 import com.example.marisayeung.gocook.EvernoteLogin;
 import com.example.marisayeung.gocook.R;
 
@@ -21,10 +22,11 @@ import java.util.concurrent.Executors;
 
 /**
  *
- * From Evernote SDK with a few modifications to match the GoCook app code
+ * From Evernote SDK with modifications for GoCook functionality
  * @author rwondratschek
  * https://github.com/evernote/evernote-sdk-android/
  *
+ * edited by Marisa Yeung
  */
 
 public abstract class BaseTask<RESULT> extends Task<RESULT> {

@@ -11,4 +11,10 @@
     <string name="notebooks">Notebooks</string>
     <string name="open_drawer">Open drawer</string>
     <string name="close_drawer">Close drawer</string>
+    <string name="search">Search</string>
+    <string name="query">Query</string>
+    <string name="empty">Empty</string>
+    <string name="all_recipes">All recipes</string>
+    <string name="favorites">Favorites</string>
+    <string name="no_notes">No notes.</string>
 </resources>

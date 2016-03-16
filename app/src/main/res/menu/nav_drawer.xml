@@ -4,10 +4,10 @@
         <item
             android:id="@+id/nav_item_notes"
             android:icon="@drawable/ic_notes"
-            android:title="@string/notes"/>
+            android:title="@string/all_recipes"/>
         <item
-            android:id="@+id/nav_item_notebooks"
-            android:icon="@drawable/ic_notebook"
-            android:title="@string/notebooks"/>
+            android:id="@+id/nav_item_favorites"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/favorites"/>
     </group>
 </menu>

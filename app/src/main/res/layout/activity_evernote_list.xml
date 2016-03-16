@@ -12,17 +12,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:orientation="vertical">
+
         <include
-            android:id="@+id/toolbar"
+            android:id="@+id/evernote_list_toolbar"
             layout="@layout/toolbar"/>
 
-        <FrameLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment_container"
-            tools:ignore="UnusedAttribute"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/empty_notes"
+            android:textColor="#999999"
+            android:textStyle="italic"
+            android:textSize="18dp"
+            android:layout_centerHorizontal="true"
+            android:text="@string/no_notes"/>
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/notes_list_view" />
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
