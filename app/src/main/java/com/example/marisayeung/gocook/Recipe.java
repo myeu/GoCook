@@ -27,6 +27,10 @@ public class Recipe implements Parcelable{
 
     private Meta meta;
 
+    public Recipe(){
+
+    }
+
     public Recipe(JSONObject jsonRecipe) {
         try {
             meta = new Meta(jsonRecipe.getJSONObject("meta"));
@@ -157,5 +161,45 @@ public class Recipe implements Parcelable{
         dest.writeStringList(steps);
         dest.writeStringList(images);
         dest.writeParcelable(meta, flags);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setYield(String yield) {
+        this.yield = yield;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNotes(List<String> notes) {
+        this.notes = notes;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images;
+    }
+
+    public void setMeta(Meta meta) {
+        this.meta = meta;
     }
 }

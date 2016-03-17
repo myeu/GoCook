@@ -1,5 +1,6 @@
 package com.example.marisayeung.gocook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -18,10 +20,15 @@ import com.evernote.client.android.type.NoteRef;
 import com.evernote.edam.type.Notebook;
 import com.evernote.edam.type.User;
 import com.example.marisayeung.gocook.task.FindNotesTask;
+import com.example.marisayeung.gocook.task.GetNoteHtmlTask;
 import com.example.marisayeung.gocook.task.GetUserTask;
 
 import net.vrallev.android.task.TaskResult;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,6 +128,23 @@ public class EvernoteList extends AppCompatActivity {
 //        noteAdapter = new NoteAdapter(this, R.layout.recipe_list_row, mStringRefList);
 
         mListView.setAdapter(noteAdapter);
+        mListView.setOnItemClickListener((new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+
+                new GetNoteHtmlTask(mNoteRefList.get(position)).start(EvernoteList.this, "html");
+                Log.d("CLICK", "task started (" + position + ")");
+//                RecipeParser r = new RecipeParser();
+//                String html = readHtmlFromFile("Stovetop-Braised Carrots and Parsnips.html");
+//                if (r.parseNYTimesRecipe(html, false)) {
+//                    new GetNoteHtmlTask(mNoteRefList.get(position)).start(EvernoteList.this, "html");
+//                    startViewer(r.getRecipe());
+//                } else {
+//                    //TODO: set up regular note view here?
+//                }
+            }
+        }));
+        refresh();
         Log.d("ONCREATE", "created note adapter");
     }
 
@@ -129,6 +153,30 @@ public class EvernoteList extends AppCompatActivity {
         mUser = user;
         if (user != null) {
             mTextViewUserName.setText(mUser.getUsername());
+        }
+    }
+
+    private void startViewer(Recipe recipe) {
+        Intent intent = new Intent(this, RecipeViewer.class);
+        intent.putExtra("chosenRecipe", recipe);
+        startActivity(intent);
+    }
+
+    public static void longInfo(String str) {
+        if(str.length() > 2000) {
+            Log.i("HTML", str.substring(0, 2000));
+            longInfo(str.substring(2000));
+        } else
+            Log.i("HTML", str);
+    }
+
+    @TaskResult(id = "html")
+    public void onGetNoteContentHtml(String html, GetNoteHtmlTask task) {
+        RecipeParser r = new RecipeParser();
+
+        if (r.parseNYTimesRecipe(html, false)) {
+            startViewer(r.getRecipe());
+        } else {
         }
     }
 
@@ -147,9 +195,6 @@ public class EvernoteList extends AppCompatActivity {
             case R.id.nav_item_notes:
                 loadData();
                 break;
-
-            case R.id.nav_item_favorites:
-                loadData();
 
             default:
                 throw new IllegalStateException("not implemented");
@@ -179,7 +224,6 @@ public class EvernoteList extends AppCompatActivity {
         mNoteRefList.clear();
         for (NoteRef noteRef: noteRefList) {
             mNoteRefList.add(noteRef);
-//            mStringRefList.add(noteRef.getTitle());
             noteAdapter.notifyDataSetChanged();
         }
     }
@@ -203,4 +247,25 @@ public class EvernoteList extends AppCompatActivity {
 //        mSwipeRefreshLayout.setRefreshing(true);
         loadData();
     }
+
+    public String readHtmlFromFile(String in) {
+        BufferedReader bufferedReader = null;
+        String html = "";
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            InputStream htmlStream = getAssets().open(in);
+            bufferedReader = new BufferedReader(new InputStreamReader(htmlStream, "UTF-8"));
+
+            int ch;
+            while ((ch = bufferedReader.read()) != -1) {
+                stringBuilder.append((char) ch);
+            }
+            html = stringBuilder.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return html;
+    }
+
+
 }

@@ -1,7 +1,9 @@
 package com.example.marisayeung.gocook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +25,17 @@ import android.widget.TextView;
 import com.example.marisayeung.gocook.fragment.DescriptionFragment;
 import com.example.marisayeung.gocook.fragment.IngredientFragment;
 import com.example.marisayeung.gocook.fragment.PreparationFragment;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class RecipeViewer extends AppCompatActivity
         implements DescriptionFragment.OnFragmentInteractionListener,
@@ -66,6 +80,11 @@ public class RecipeViewer extends AppCompatActivity
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        String name = recipe.getImages().get(0);
+        String url = recipe.getImages().get(1);
+        ImageRequestRunnable irr = new ImageRequestRunnable(name, url);
+        irr.execute();
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -193,6 +212,61 @@ public class RecipeViewer extends AppCompatActivity
                     return "PREPARATION";
             }
             return null;
+        }
+    }
+
+    class ImageRequestRunnable extends AsyncTask<Void, Void, Void> {
+        String filename;
+        URL url;
+        FileOutputStream outputStream;
+        BufferedInputStream in;
+
+        public ImageRequestRunnable(String name, String url) {
+            filename = name;
+            in = null;
+            try {
+                this.url = new URL(url);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                URLConnection connection = url.openConnection();
+                connection.connect();
+
+                in = new BufferedInputStream(connection.getInputStream());
+                outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+
+                final byte data[] = new byte[1024];
+                int count;
+                while ((count = in.read(data, 0, 1024)) != -1) {
+                    outputStream.write(data, 0, count);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (in != null) {
+                        in.close();
+                    }
+                    if (outputStream != null) {
+                        outputStream.close();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mSectionsPagerAdapter.notifyDataSetChanged();
+            Log.d("POSTEX", "post execute");
         }
     }
 }

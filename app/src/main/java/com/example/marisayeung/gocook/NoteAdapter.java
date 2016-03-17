@@ -42,11 +42,6 @@ public class NoteAdapter extends ArrayAdapter<NoteRef> {
         TextView titleView = (TextView) row.findViewById(R.id.rowTitle);
         String title = noteRef.getTitle();
         titleView.setText(title);
-
-//        show recipe preview
-        TextView previewView = (TextView) row.findViewById(R.id.rowText);
-//        previewView.setText(note.getContent().substring(0,45));
-        previewView.setVisibility(View.GONE);
         return row;
     }
 }

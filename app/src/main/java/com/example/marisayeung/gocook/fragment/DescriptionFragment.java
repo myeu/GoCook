@@ -1,6 +1,8 @@
 package com.example.marisayeung.gocook.fragment;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.example.marisayeung.gocook.R;
 import com.example.marisayeung.gocook.Recipe;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -59,8 +62,6 @@ public class DescriptionFragment extends Fragment {
         if (getArguments() != null) {
             recipe = getArguments().getParcelable(RECIPE);
         }
-
-
     }
 
     @Override
@@ -78,17 +79,26 @@ public class DescriptionFragment extends Fragment {
 
             ImageView topPhoto = new ImageView(context);
             List<String> images = recipe.getImages();
-            try {
-                if (images.size() > 0) {
-                    Drawable image = Drawable.createFromStream(context.getAssets().open(images.get(0)), null);
-                    topPhoto.setImageDrawable(image);
-                    overview.addView(topPhoto);
-                } else if (images.size() > 1) {
-                    // TODO: add image view elements to content xml
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+//            try {
+//                if (images.size() > 1) {
+//                    String name = recipe.getImages().get(0);
+////                    Drawable image = Drawable.createFromStream(context.getAssets().open(images.get(0)), null);
+////                    Drawable image = getFileStreamPath(fileName);
+//                    FileInputStream fis = getActivity().openFileInput(name);
+////                    Drawable image = Drawable.createFromStream(fis);
+//                    if (fis != null) {
+//                        Bitmap b = BitmapFactory.decodeStream(fis);
+//                        fis.close();
+//                        topPhoto.setImageBitmap(b);
+//                        overview.addView(topPhoto);
+//                    }
+//                } else if (images.size() > 1) {
+//                    // TODO: add image view elements to content xml
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             author = new TextView(context);
             author.setText(recipe.getAuthor());

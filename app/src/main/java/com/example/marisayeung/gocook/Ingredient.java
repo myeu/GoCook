@@ -32,6 +32,8 @@ public class Ingredient implements Parcelable{
         }
     }
 
+    public Ingredient() {
+    }
 
     @Override
     public int describeContents() {
@@ -83,6 +85,26 @@ public class Ingredient implements Parcelable{
 
     public String getNote() {
         return note;
+    }
+
+    public void setIngredient(String ingredient) {
+        this.ingredient = ingredient;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setProcessing(String processing) {
+        this.processing = processing;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
 

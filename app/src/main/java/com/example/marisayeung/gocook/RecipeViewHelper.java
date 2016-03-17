@@ -29,7 +29,7 @@ public class RecipeViewHelper {
         amountView.setLayoutParams(lineParams);
         ingredientLayout.addView(amountView);
 
-//        TODO: check whether to add plural ending
+//        TODO: check what fields are empty, see parser
         TextView unitView = new TextView(context);
         if (!i.getUnit().equals("each")) {
             unitView.setText(i.getUnit());
