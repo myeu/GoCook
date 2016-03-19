@@ -6,7 +6,7 @@
     <string name="title_activity_recipe_viewer">Recipe Viewer</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_evernote_login">EvernoteLogin</string>
-    <string name="title_activity_evernote_list">EvernoteList</string>
+    <string name="title_activity_evernote_list">GoCook</string>
     <string name="notes">Notes</string>
     <string name="notebooks">Notebooks</string>
     <string name="open_drawer">Open drawer</string>

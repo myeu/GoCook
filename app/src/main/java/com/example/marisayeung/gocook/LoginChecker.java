@@ -52,7 +52,7 @@ public class LoginChecker implements Application.ActivityLifecycleCallbacks {
                 activity.startActivity(mCachedIntent);
                 mCachedIntent = null;
             } else {
-                activity.startActivity(new Intent(activity, RecipeList.class));
+                activity.startActivity(new Intent(activity, EvernoteList.class));
             }
         }
 

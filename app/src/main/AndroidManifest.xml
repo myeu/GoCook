@@ -32,11 +32,11 @@
         <activity
             android:name=".RecipeViewer"
             android:label="@string/title_activity_recipe_viewer"
-            android:parentActivityName=".RecipeList"
+            android:parentActivityName=".EvernoteList"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.marisayeung.gocook.RecipeList" />
+                android:value="com.example.marisayeung.gocook.EvernoteList" />
         </activity>
 
     </application>

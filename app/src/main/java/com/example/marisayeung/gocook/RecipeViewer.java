@@ -27,13 +27,7 @@ import com.example.marisayeung.gocook.fragment.IngredientFragment;
 import com.example.marisayeung.gocook.fragment.PreparationFragment;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.FileDescriptor;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -81,20 +75,13 @@ public class RecipeViewer extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        String name = recipe.getImages().get(0);
-        String url = recipe.getImages().get(1);
-        ImageRequestRunnable irr = new ImageRequestRunnable(name, url);
-        irr.execute();
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
+        /*
+         *  Launch async task to load top image over the network
+         */
+//        String name = recipe.getImages().get(0);
+//        String url = recipe.getImages().get(1);
+//        ImageRequestRunnable irr = new ImageRequestRunnable(name, url);
+//        irr.execute();
     }
 
 
@@ -122,38 +109,32 @@ public class RecipeViewer extends AppCompatActivity
 
     @Override
     public void onDescriptionFragmentInteraction(Uri uri) {
-
     }
 
     @Override
     public void onIngredientFragmentInteraction(Uri uri) {
-
     }
 
     @Override
     public void onPreparationFragmentInteraction(Uri uri) {
-
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
+    public static class TabFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
-        public PlaceholderFragment() {
+        public TabFragment() {
         }
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static TabFragment newInstance(int sectionNumber) {
+            TabFragment fragment = new TabFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
@@ -183,7 +164,7 @@ public class RecipeViewer extends AppCompatActivity
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
+            // Return a TabFragment (defined as a static inner class below).
 //            TODO: instead of passing recipe object, just pass the required peices
             if (getPageTitle(position).equals("OVERVIEW")) {
                 return DescriptionFragment.newInstance(recipe);
@@ -192,7 +173,7 @@ public class RecipeViewer extends AppCompatActivity
             } else if (getPageTitle(position).equals("PREPARATION")) {
                 return PreparationFragment.newInstance(recipe);
             }
-            return PlaceholderFragment.newInstance(position + 1);
+            return TabFragment.newInstance(position + 1);
         }
 
         @Override
@@ -215,6 +196,10 @@ public class RecipeViewer extends AppCompatActivity
         }
     }
 
+    /*
+     * Get recipe image over the network and update ui
+     * TODO: Fix FileNotFound exception and then re-enable code in OnCreate to run it
+     */
     class ImageRequestRunnable extends AsyncTask<Void, Void, Void> {
         String filename;
         URL url;
