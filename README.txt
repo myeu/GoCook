@@ -2,7 +2,7 @@ GoCook
 Marisa Yeung
 A recipe viewer and organizer
 
-Demo
+Early milestone demo
 	https://www.youtube.com/watch?v=XN_B4v0nIIw
 
 Table of Contents
