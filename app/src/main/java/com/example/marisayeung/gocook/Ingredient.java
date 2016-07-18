@@ -8,6 +8,9 @@ import org.json.JSONObject;
 
 /**
  * Created by marisayeung
+ *
+ * Ingredient class for use with Recipe class
+ *
  * */
 public class Ingredient implements Parcelable{
     private String ingredient;

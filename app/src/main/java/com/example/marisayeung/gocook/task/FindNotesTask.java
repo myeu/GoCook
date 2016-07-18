@@ -14,11 +14,9 @@ import java.util.List;
 
 /**
  *
- * From Evernote SDK with modifications for GoCook functionality
  * @author rwondratschek
  * https://github.com/evernote/evernote-sdk-android/
  *
- * edited by Marisa Yeung
  */
 public class FindNotesTask extends BaseTask<List<NoteRef>>{
 

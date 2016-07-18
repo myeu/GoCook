@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,45 +76,59 @@ public class DescriptionFragment extends Fragment {
         if (context != null) {
             title = new TextView(context);
             title.setText(recipe.getTitle());
+            title.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 32);
             overview.addView(title);
 
             ImageView topPhoto = new ImageView(context);
             List<String> images = recipe.getImages();
 
-//            try {
-//                if (images.size() > 1) {
-//                    String name = recipe.getImages().get(0);
-////                    Drawable image = Drawable.createFromStream(context.getAssets().open(images.get(0)), null);
-////                    Drawable image = getFileStreamPath(fileName);
-//                    FileInputStream fis = getActivity().openFileInput(name);
-////                    Drawable image = Drawable.createFromStream(fis);
-//                    if (fis != null) {
-//                        Bitmap b = BitmapFactory.decodeStream(fis);
-//                        fis.close();
-//                        topPhoto.setImageBitmap(b);
-//                        overview.addView(topPhoto);
-//                    }
-//                } else if (images.size() > 1) {
-//                    // TODO: add image view elements to content xml
-//                }
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
+/*            try {
+                if (images.size() > 1) {
+                    String name = recipe.getImages().get(0);
+//                    Drawable image = Drawable.createFromStream(context.getAssets().open(images.get(0)), null);
+//                    Drawable image = getFileStreamPath(fileName);
+                    FileInputStream fis = getActivity().openFileInput(name);
+//                    Drawable image = Drawable.createFromStream(fis);
+                    if (fis != null) {
+                        Bitmap b = BitmapFactory.decodeStream(fis);
+                        fis.close();
+                        topPhoto.setImageBitmap(b);
+                        overview.addView(topPhoto);
+                    }
+                } else if (images.size() > 1) {
+                    // TODO: add image view elements to content xml
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
 
-            author = new TextView(context);
-            author.setText(recipe.getAuthor());
-            overview.addView(author);
+            if (!recipe.getAuthor().equals("")) {
+                author = new TextView(context);
+                author.setText(recipe.getAuthor());
+                author.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
+                author.setPadding(0, 0, 0, 10);
+                overview.addView(author);
+            }
 
-            yield = new TextView(context);
-            yield.setText(recipe.getYield());
-            overview.addView(yield);
+            if (!recipe.getYield().equals("")) {
+                yield = new TextView(context);
+                yield.setText(recipe.getYield());
+                yield.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+                yield.setPadding(0, 10, 0, 10);
+                overview.addView(yield);
+            }
 
             time = new TextView(context);
             time.setText(recipe.getTime());
+            time.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            time.setPadding(0, 10, 0, 10);
             overview.addView(time);
 
             description = new TextView(context);
             description.setText(recipe.getDescription());
+            description.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+            description.setLineSpacing(0, 1.5F);
+            description.setPadding(0, 10, 0, 20);
             overview.addView(description);
         }
         return rootView;

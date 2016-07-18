@@ -13,6 +13,9 @@ import java.util.List;
 
 /**
  * Created by marisayeung
+ *
+ * Recipe class, used to normalize recipes from other formats
+ *
  */
 public class Recipe implements Parcelable{
     private String title;

@@ -28,7 +28,6 @@ import net.vrallev.android.task.TaskResult;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,8 +51,6 @@ public class EvernoteList extends AppCompatActivity {
     private TextView emptyList;
     NoteAdapter noteAdapter;
 
-//    protected SwipeRefreshLayout mSwipeRefreshLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +60,6 @@ public class EvernoteList extends AppCompatActivity {
             // LoginChecker will call finish
             return;
         }
-        Log.d("HELLO", "1");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.evernote_list_toolbar);
         setSupportActionBar(toolbar);
@@ -83,7 +79,6 @@ public class EvernoteList extends AppCompatActivity {
             mSelectedNavItem = savedInstanceState.getInt(KEY_SELECTED_NAV_ITEM, mSelectedNavItem);
             mUser = (User) savedInstanceState.getSerializable(KEY_USER);
         }
-        Log.d("HELLO", "2");
 
         // Set listener for nav menu items
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -97,19 +92,16 @@ public class EvernoteList extends AppCompatActivity {
             }
         });
         navigationView.getMenu().findItem(mSelectedNavItem).setChecked(true);
-        Log.d("HELLO", "3");
 
         // get nav drawer header for later
         View headerView = navigationView.inflateHeaderView(R.layout.nav_drawer_header);
         mTextViewUserName = (TextView) headerView.findViewById(R.id.textView_user_name);
-        Log.d("HELLO", "4");
 
         // set up tool bar toggle button for nav drawer
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
         mDrawerLayout.setDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        Log.d("HELLO", "5");
 
         /*
          *  User not returning (but logged in) show default selection and get user
@@ -118,36 +110,28 @@ public class EvernoteList extends AppCompatActivity {
             showItem(mSelectedNavItem);
             new GetUserTask().start(this);
         } else if (mUser != null) {
-            Log.d("TRIGGER", "manual onGetUser call");
             onGetUser(mUser);
         }
         Log.d("HELLO", "6");
 
         // Prep listview adapter
         noteAdapter = new NoteAdapter(this, R.layout.recipe_list_row, mNoteRefList);
-//        noteAdapter = new NoteAdapter(this, R.layout.recipe_list_row, mStringRefList);
 
+        // List click listener
         mListView.setAdapter(noteAdapter);
         mListView.setOnItemClickListener((new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-
+                // call start with ref to this class and the TaskResult tag
                 new GetNoteHtmlTask(mNoteRefList.get(position)).start(EvernoteList.this, "html");
-                Log.d("CLICK", "task started (" + position + ")");
-//                RecipeParser r = new RecipeParser();
-//                String html = readHtmlFromFile("Stovetop-Braised Carrots and Parsnips.html");
-//                if (r.parseNYTimesRecipe(html, false)) {
-//                    new GetNoteHtmlTask(mNoteRefList.get(position)).start(EvernoteList.this, "html");
-//                    startViewer(r.getRecipe());
-//                } else {
-//                    //TODO: set up regular note view here?
-//                }
             }
         }));
         refresh();
-        Log.d("ONCREATE", "created note adapter");
     }
 
+    /*
+        Update username in nav drawer
+     */
     @TaskResult
     public void onGetUser(User user) {
         mUser = user;
@@ -156,28 +140,33 @@ public class EvernoteList extends AppCompatActivity {
         }
     }
 
-    private void startViewer(Recipe recipe) {
-        Intent intent = new Intent(this, RecipeViewer.class);
-        intent.putExtra("chosenRecipe", recipe);
-        startActivity(intent);
-    }
-
-    public static void longInfo(String str) {
+    /*public static void longInfo(String str) {
         if(str.length() > 2000) {
             Log.i("HTML", str.substring(0, 2000));
             longInfo(str.substring(2000));
         } else
             Log.i("HTML", str);
-    }
+    }*/
 
+    /*
+        Parse html into a recipe object, load recipe viewer
+     */
     @TaskResult(id = "html")
     public void onGetNoteContentHtml(String html, GetNoteHtmlTask task) {
         RecipeParser r = new RecipeParser();
 
         if (r.parseNYTimesRecipe(html, false)) {
             startViewer(r.getRecipe());
-        } else {
         }
+    }
+
+    /*
+        Load recipe viewer with the recipe
+     */
+    private void startViewer(Recipe recipe) {
+        Intent intent = new Intent(this, RecipeViewer.class);
+        intent.putExtra("chosenRecipe", recipe);
+        startActivity(intent);
     }
 
     /*
@@ -190,6 +179,9 @@ public class EvernoteList extends AppCompatActivity {
         showItem(navItemId);
     }
 
+    /*
+        Load list items based on nav menu item id
+     */
     private void showItem(int navItemId) {
         switch (navItemId) {
             case R.id.nav_item_notes:
@@ -201,15 +193,19 @@ public class EvernoteList extends AppCompatActivity {
         }
     }
 
+    /*
+        Get notes
+     */
     protected void loadData() {
-        Log.d("LOADING", "" + mQuery);
         new FindNotesTask(0, MAX_NOTES, mNotebook, mQuery).start(this);
         mQuery = null;
     }
 
+    /*
+        Find notes task
+     */
     @TaskResult
     public void onFindNotes(List<NoteRef> noteRefList) {
-        Log.d("ONFIND", "" + noteRefList.size());
 
         if (emptyList != null) {
             if (noteRefList.size() > 0) {
@@ -244,11 +240,10 @@ public class EvernoteList extends AppCompatActivity {
     }
 
     public void refresh() {
-//        mSwipeRefreshLayout.setRefreshing(true);
         loadData();
     }
 
-    public String readHtmlFromFile(String in) {
+    /*public String readHtmlFromFile(String in) {
         BufferedReader bufferedReader = null;
         String html = "";
         try {
@@ -265,7 +260,5 @@ public class EvernoteList extends AppCompatActivity {
             e.printStackTrace();
         }
         return html;
-    }
-
-
+    } */
 }

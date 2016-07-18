@@ -2,11 +2,9 @@ package com.example.marisayeung.gocook.task;
 
 /**
  *
- * From Evernote SDK demo with modifications for GoCook functionality
  * @author rwondratschek
  * https://github.com/evernote/evernote-sdk-android/
  *
- * edited by Marisa Yeung
  */
 
 import com.evernote.client.android.EvernoteSession;

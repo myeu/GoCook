@@ -5,7 +5,6 @@ import com.evernote.client.android.EvernoteSession;
 
 /**
  *
- * From Evernote SDK demo
  * @author rwondratschek
  * https://github.com/evernote/evernote-sdk-android/
  *

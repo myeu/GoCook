@@ -13,6 +13,11 @@ import java.util.List;
 
 /**
  * Created by marisayeung
+ *
+ * Extract recipe information from HTML document
+ *
+ * Uses Jsoup to parse html, queries the Document for the recipe details
+ *
  */
 public class NYTimesRecipe {
     Document doc;

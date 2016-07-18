@@ -41,7 +41,7 @@ public class PreparationFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param recipe Parameter 1.
+     * @param recipe A recipe object parsed from html
      * @return A new instance of fragment PreparationFragment.
      */
     public static PreparationFragment newInstance(Recipe recipe) {

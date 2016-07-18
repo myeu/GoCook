@@ -15,6 +15,13 @@ import java.util.ArrayList;
 
 /**
  * Created by marisayeung
+ *
+ * Adapt recipes from various formats to a single class, Recipe
+ *
+ * Currently built to parse:
+ *      - nytimes.com HTML format recipes
+ *      - JSON recipes with appropriate fields
+ *
  */
 public class RecipeParser {
     Recipe recipe;
@@ -24,6 +31,10 @@ public class RecipeParser {
         recipe = new Recipe();
     }
 
+    /* If file contains HTML for a nytimes.com recipe, create recipe
+     *
+     * NYTimesRecipe contains parsing details
+     */
     public boolean parseNYTimesRecipe(String fName, boolean fileName) {
         nyt = new NYTimesRecipe(fName, fileName);
 

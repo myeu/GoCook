@@ -1,6 +1,7 @@
 package com.example.marisayeung.gocook;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ public class RecipeViewHelper {
         TextView amountView = new TextView(context);
         amountView.setText(i.getAmount());
         amountView.setLayoutParams(lineParams);
+        amountView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+        amountView.setPadding(25, 8, 0, 8);
         ingredientLayout.addView(amountView);
 
 //        TODO: check what fields are empty, see parser
@@ -51,6 +54,8 @@ public class RecipeViewHelper {
         TextView ingredientView = new TextView(context);
         ingredientView.setText(builder.toString());
         ingredientView.setLayoutParams(lineParams);
+        ingredientView.setPadding(25, 0, 0, 0);
+        ingredientView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
         ingredientLayout.addView(ingredientView);
 
         return ingredientLayout;
@@ -68,22 +73,27 @@ public class RecipeViewHelper {
 //        Add number
         TextView number = new TextView(context);
         LinearLayout.LayoutParams numberParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        numberParams.setMargins(16, 0, 0, 0);
+        numberParams.setMargins(25, 0, 0, 0);
         number.setLayoutParams(numberParams);
 
         StringBuilder builder = new StringBuilder();
         builder.append(num);
         builder.append(". ");
         number.setText(builder);
+        number.setPadding(25, 0, 0, 0);
+        number.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
         stepLayout.addView(number);
 
 //        Add step
         TextView stepView = new TextView(context);
         LinearLayout.LayoutParams stepTextParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        stepTextParams.setMargins(16, 0, 0, 0);
+        stepTextParams.setMargins(16, 0, 25, 0);
         stepView.setLayoutParams(stepTextParams);
 
         stepView.setText(step);
+        stepView.setLineSpacing(0, 1.5F);
+        stepView.setPadding(0, 0, 25, 0);
+        stepView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
         stepLayout.addView(stepView);
 
         return stepLayout;
